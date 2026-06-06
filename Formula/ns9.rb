@@ -34,17 +34,11 @@ class Ns9 < Formula
   desc     "NS9 — operational knowledge graph engine for engineering teams"
   homepage "https://github.com/ck8t/ns9"
   url      "https://github.com/ck8t/ns9/archive/refs/tags/v0.1.0.tar.gz"
-  sha256   "REPLACE_WITH_SHA256_OF_RELEASE_TARBALL"
+  sha256   "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
   license  "MIT"
   version  "0.1.0"
 
   depends_on "python@3.11"
-
-  # uv for fast dep resolution inside the virtualenv
-  resource "uv" do
-    url    "https://files.pythonhosted.org/packages/source/u/uv/uv-0.5.0.tar.gz"
-    sha256 "REPLACE_WITH_UV_SHA256"
-  end
 
   def install
     # Create an isolated virtualenv managed by Homebrew.
