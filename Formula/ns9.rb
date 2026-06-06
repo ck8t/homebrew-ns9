@@ -1,34 +1,32 @@
-# Homebrew formula for NS9 — installs a pre-built binary.
+# Homebrew formula for NS9.
 #
-# Source code lives in a private repo.
-# Pre-built binaries are published as release assets on github.com/ck8t/ns9 (public).
+# Source code: private repo (ck8t/_ns9)
+# Release host: public repo (ck8t/ns9) — this formula downloads from there
 #
 # Install:
 #   brew tap ck8t/ns9
 #   brew install ns9
 #   ns9 init          # install runtime deps into ~/.ns9/.venv/
 #
-# Release workflow: see README.md in this repo.
+# Release workflow: see README at github.com/ck8t/ns9
 
 class Ns9 < Formula
+  include Language::Python::Virtualenv
+
   desc     "NS9 — operational knowledge graph engine for engineering teams"
   homepage "https://github.com/ck8t/ns9"
+  url      "https://github.com/ck8t/ns9/releases/download/v0.1.0/ns9-0.1.0.tar.gz"
+  sha256   "67152d113ce54e4703d6544b241572beb3f9d68909df951a5194ed493369777c"
   license  "MIT"
   version  "0.1.0"
 
-  on_macos do
-    on_arm do
-      url "https://github.com/ck8t/ns9/releases/download/v0.1.0/ns9-0.1.0-macos-arm64.tar.gz"
-      sha256 "REPLACE_WITH_ARM64_SHA256"
-    end
-    on_intel do
-      url "https://github.com/ck8t/ns9/releases/download/v0.1.0/ns9-0.1.0-macos-x86_64.tar.gz"
-      sha256 "REPLACE_WITH_X86_64_SHA256"
-    end
-  end
+  depends_on "python@3.11"
 
   def install
-    bin.install "ns9"
+    venv = virtualenv_create(libexec, "python3.11")
+    venv.pip_install_and_link buildpath
+    bin.install_symlink libexec/"bin/ns9"
+    bin.install_symlink libexec/"bin/ns9-mcp"
   end
 
   def post_install
