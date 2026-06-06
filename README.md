@@ -1,6 +1,6 @@
 # homebrew-ns9
 
-Homebrew tap for [NS9](https://github.com/ck8t/ns9) — the operational knowledge graph engine.
+Homebrew tap for NS9 — the operational knowledge graph engine.
 
 ## Install
 
@@ -21,7 +21,6 @@ NS9 parses your codebase, database schema, logs, and runbooks into an interactiv
 Open `ns9-out/graph.html` in any browser — no Postgres, no LLMs required for the graph command.
 
 ```bash
-# Build a graph from any folder — no setup needed beyond ns9 init graph
 ns9 init graph
 ns9 generate graph /path/to/your/project
 open ns9-out/graph.html
@@ -61,6 +60,79 @@ brew untap ck8t/ns9
 rm -rf ~/.ns9   # removes the dependency venv
 ```
 
+---
+
+## Release workflow (maintainers)
+
+Binaries are built from the private dev repo and uploaded to [github.com/ck8t/ns9](https://github.com/ck8t/ns9) releases.
+The ns9 repo is public and used exclusively as a release host for Homebrew.
+
+### 1. Build binaries (from your private dev repo)
+
+```bash
+# arm64 (Apple Silicon)
+bash packaging/build_mac.sh --graph
+
+# Cross-compile for Intel if needed, or build on an Intel machine:
+# bash packaging/build_mac.sh --graph
+```
+
+This produces:
+- `dist/ns9-<version>-macos-arm64.tar.gz`
+- `dist/ns9-<version>-macos-x86_64.tar.gz`
+
+### 2. Publish the release to ck8t/ns9
+
+```bash
+VERSION=0.1.0
+
+gh release create "v${VERSION}" \
+  "dist/ns9-${VERSION}-macos-arm64.tar.gz" \
+  "dist/ns9-${VERSION}-macos-x86_64.tar.gz" \
+  --repo ck8t/ns9 \
+  --title "v${VERSION}" \
+  --notes "Release v${VERSION}"
+```
+
+### 3. Get the sha256 of each binary
+
+```bash
+shasum -a 256 dist/ns9-${VERSION}-macos-arm64.tar.gz
+shasum -a 256 dist/ns9-${VERSION}-macos-x86_64.tar.gz
+```
+
+### 4. Update the formula
+
+Edit `Formula/ns9.rb` — update `version`, the two `url` lines, and the two `sha256` values.
+
+### 5. Commit and push
+
+```bash
+git add Formula/ns9.rb
+git commit -m "Bump formula to v${VERSION}"
+git push
+```
+
+Users will get the new version on their next `brew update && brew upgrade ns9`.
+
+---
+
+## Moving your dev source to a private repo
+
+If your active development is in a private repo separate from `ck8t/ns9`, set it up once:
+
+```bash
+# From your local ns9 checkout:
+git remote rename origin private
+
+# Create a new private repo and push
+gh repo create ck8t/ns9-dev --private --source=. --push
+
+# ck8t/ns9 (public) is now only for releases — no code pushes needed there
+```
+
+---
+
 ## Requirements
 
 - macOS 12 (Monterey) or later
@@ -69,7 +141,6 @@ rm -rf ~/.ns9   # removes the dependency venv
 
 ## Links
 
-- [NS9 repository](https://github.com/ck8t/ns9)
-- [Documentation](https://github.com/ck8t/ns9/wiki)
+- [Documentation](https://github.com/ck8t/ns9)
 - [Release notes](https://github.com/ck8t/ns9/releases)
 - [Report an issue](https://github.com/ck8t/ns9/issues)
