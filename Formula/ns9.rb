@@ -17,15 +17,15 @@ class Ns9 < Formula
   desc     "NS9 — operational knowledge graph engine for engineering teams"
   homepage "https://github.com/ck8t/ns9"
   license  "MIT"
-  version  "0.1.2"
+  version  "0.1.3"
 
   on_macos do
     on_arm do
-      url    "https://github.com/ck8t/ns9/releases/download/v0.1.2/ns9-0.1.2-macos-arm64.tar.gz"
-      sha256 "e7e9486b70e57ccff738ebb547cdc2d6f85c58726061019942a2308dfecbe54e"
+      url    "https://github.com/ck8t/ns9/releases/download/v0.1.3/ns9-0.1.3-macos-arm64.tar.gz"
+      sha256 "bf897d8b2f5299fcab2cf736bd7b4e248959afa3a3ba53e0910493cd17b710ac"
     end
     on_intel do
-      url    "https://github.com/ck8t/ns9/releases/download/v0.1.2/ns9-0.1.2-macos-x86_64.tar.gz"
+      url    "https://github.com/ck8t/ns9/releases/download/v0.1.3/ns9-0.1.3-macos-x86_64.tar.gz"
       sha256 "REPLACE_WITH_X86_64_SHA256"
     end
   end
