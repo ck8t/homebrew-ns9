@@ -22,7 +22,7 @@ class Ns9 < Formula
   on_macos do
     on_arm do
       url    "https://github.com/ck8t/ns9/releases/download/v0.1.7/ns9-0.1.7-macos-arm64.tar.gz"
-      sha256 "1933020faba56df0198b17cc0a3f6767fa709102c4ac6f512bcf7216c451aae7"
+      sha256 "5953506d8f1642a1d4f4a496d117c5adf62579ba688e1c64fcf2256be35381e7"
     end
     on_intel do
       # Unbuilt — GitHub's macos-latest hosted runner is arm64-only, so the
