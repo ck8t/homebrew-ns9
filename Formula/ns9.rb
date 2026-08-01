@@ -17,18 +17,18 @@ class Ns9 < Formula
   desc     "NS9 — operational knowledge graph engine for engineering teams"
   homepage "https://github.com/ck8t/ns9"
   license  "MIT"
-  version  "0.1.22"
+  version  "0.1.23"
 
   on_macos do
     on_arm do
-      url    "https://github.com/ck8t/ns9/releases/download/v0.1.22/ns9-0.1.22-macos-arm64-py3.12.tar.gz"
-      sha256 "9071439e321531a9fa0924a41366e1d47398a29c71579ae3a32fc13b140c642d"
+      url    "https://github.com/ck8t/ns9/releases/download/v0.1.23/ns9-0.1.23-macos-arm64-py3.12.tar.gz"
+      sha256 "a87d07d8875b51a04a578e8a1fcd463fa0c7d6be112c2f5b34de6a7a1bf354a9"
     end
     on_intel do
       # Unbuilt — GitHub's macos-latest hosted runner is arm64-only, so the
       # release CI (.github/workflows/release.yml) has never produced this
       # asset. Placeholder until an Intel Mac (or an x86_64 runner) builds one.
-      url    "https://github.com/ck8t/ns9/releases/download/v0.1.22/ns9-0.1.22-macos-x86_64-py3.12.tar.gz"
+      url    "https://github.com/ck8t/ns9/releases/download/v0.1.23/ns9-0.1.23-macos-x86_64-py3.12.tar.gz"
       sha256 "REPLACE_WITH_X86_64_SHA256"
     end
   end
